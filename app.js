@@ -4,7 +4,9 @@ const bodyParser = require("body-parser")
 
 app.use(express.static('.'))
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({
+     extended: false 
+}));
 
 app.use(express.static('../uploads'))
 const multer = require('multer');
@@ -23,7 +25,7 @@ let upload = multer({storage:storage})
 //单文件上传获取信息
 app.post('/upload',upload.single('file'),function(req,res,next){
     var file=req.file;
-    console.log("original file name is"+file.originalname);
+    console.log("original file name is "+file.originalname);
     console.log("file name is "+ file.filename);
     res.json('/'+file.filename);//这行代码必须要有，否则Browser会处于wait状态。
 })
@@ -85,25 +87,25 @@ let id=0
 var server = ws.createServer(function (conn) {
     id++
     conn.name = "p"+id
-    broadcost(server,'有新人加入。')
-    conn.on("text",function(str) {
+    broadcast(server,'有新人加入。')
+    conn.on("text",function (str) {
         if(str.slice(0,9)=='nickname|'){
             conn.name=str.split('|')[1]
-            broadcost(server,conn.name+'上线了。')
+            broadcast(server,conn.name+'上线了。')
             return
         }
-        Broadcast(server,conn.name+':'+str)
+        broadcast(server,conn.name+':'+str)
     })
     conn.on('connect',function(){
         conn.name = "name"
     })
-    conn.on("close",function(code,reason){
+    conn.on("close", function (code,reason) {
         console.log("Connection closed")
     })
 }).listen(8081,()=>console.log('socket server listening on:8081'))
 
-function broadcast(server,msg){
-    server.connections.forEach(function(conn){
+function broadcast(server,msg) {
+    server.connections.forEach(function (conn){
         conn.sendText(msg)
     })
 }
