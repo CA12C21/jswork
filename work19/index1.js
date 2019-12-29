@@ -24,6 +24,6 @@ document.getElementById('upload').onclick = function() {
             down.innerHTML = `文件上传成功。<a href=${downurl}>下载文件${downurl}</a>`; //使用模板字符串和变量替换${}
         }
     };
-    xhr.open('POST','http://139.9.81.203:8090/upload');
+    xhr.open('POST','http://localhost:8080/ajax');
     xhr.send(fd);
 };
