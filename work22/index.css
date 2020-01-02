@@ -1,8 +1,7 @@
-.title {
+.title{
     text-align: center;
     font-size: 40px;
 }
-
 .main {
     margin: 10px auto;
     padding: 20px;
@@ -56,7 +55,7 @@
     background-repeat: no-repeat;
 }
 
-.main::after {
+.main:after {
     clear: both;
     display: block;
     content: "";
